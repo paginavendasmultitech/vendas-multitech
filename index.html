@@ -193,7 +193,11 @@
   .video-poster-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top;}
   .video-frame::before{
     content:''; position:absolute; inset:0; z-index:1;
-    background:linear-gradient(180deg, rgba(11,14,20,.35), rgba(11,14,20,.75));
+    background:linear-gradient(180deg, rgba(11,14,20,.15), rgba(11,14,20,.5));
+    pointer-events:none;
+  }
+  .video-frame.video-playing::before{
+    display:none;
   }
   .video-placeholder{
     position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
@@ -752,9 +756,14 @@
 
   // Troca o poster (imagem de prévia) pelo vídeo de verdade só quando a pessoa
   // clica — assim ninguém baixa 28-32MB de vídeo sem querer, só de abrir a página.
+  // Guarda qual vídeo está tocando agora, pra pausar ele sozinho quando outro começar
+  let videoTocandoAgora = null;
+
   function tocarVideo(frame, src) {
     frame.onclick = null;
     frame.style.cursor = 'default';
+    frame.classList.add('video-playing'); // tira o filtro escuro por cima do vídeo
+
     const video = document.createElement('video');
     video.src = src;
     video.controls = true;
@@ -762,6 +771,14 @@
     video.playsInline = true;
     frame.innerHTML = '';
     frame.appendChild(video);
+
+    // Se já tinha outro vídeo tocando, pausa ele assim que este começar
+    video.addEventListener('play', () => {
+      if (videoTocandoAgora && videoTocandoAgora !== video) {
+        videoTocandoAgora.pause();
+      }
+      videoTocandoAgora = video;
+    });
   }
 </script>
 
