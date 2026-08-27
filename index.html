@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MultiTech OS — O sistema da sua assistência técnica</title>
+<meta name="description" content="Recepção, orçamento, financeiro e portal do cliente numa tela só. Feito pra assistência técnica de celular e notebook, não pra depender de caderno e planilha.">
+<link rel="icon" type="image/png" href="/icon-64.png">
+<link rel="apple-touch-icon" href="/icon-256.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MultiTech OS">
+<meta property="og:title" content="MultiTech OS — O sistema da sua assistência técnica">
+<meta property="og:description" content="Recepção, orçamento, financeiro e portal do cliente numa tela só. Chega de perder o controle no caderno.">
+<meta property="og:image" content="https://multitechos.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MultiTech OS — O sistema da sua assistência técnica">
+<meta name="twitter:description" content="Recepção, orçamento, financeiro e portal do cliente numa tela só.">
+<meta name="twitter:image" content="https://multitechos.vercel.app/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14;
+    --surface:#12161F;
+    --surface-2:#181D28;
+    --line:#262C3A;
+    --text:#E8EAF0;
+    --muted:#8891A6;
+    --indigo:#6366F1;
+    --indigo-soft:#6366F122;
+    --copper:#E8A33D;
+    --copper-soft:#E8A33D22;
+    --paper:#F4F1E8;
+    --paper-line:#D8D2C0;
+    --good:#3DD9A4;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:90px; overflow-x:hidden; max-width:100%;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    max-width:100%;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--copper);
+  }
+  ::selection{background:var(--copper); color:var(--ink);}
+  :focus-visible{outline:2px solid var(--copper); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,14,20,.82); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    padding:16px 20px; max-width:1180px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:18px;}
+  .logo-mark{
+    width:30px; height:30px; border-radius:8px;
+    overflow:hidden; flex-shrink:0;
+    background:linear-gradient(135deg,var(--indigo),#8385f5);
+  }
+  .logo-mark img{width:100%; height:100%; object-fit:cover;}
+  .nav-links{display:flex; gap:32px; font-size:14px; color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:10px;
+    font-size:14px; font-weight:600; cursor:pointer; border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--copper); color:#1a1204;}
+  .btn-primary:hover{background:#f0ad4f;}
+  .btn-ghost{border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:#3a4155;}
+  .btn-lg{padding:15px 26px; font-size:15px; border-radius:12px;}
+  @media (max-width:860px){ .nav-links{display:none;} }
+  @media (max-width:480px){
+    .wrap{padding:0 18px;}
+    nav .btn-primary{padding:9px 14px; font-size:12.5px;}
+    .logo{font-size:16px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:88px 0 60px;
+    background:
+      radial-gradient(ellipse 700px 420px at 18% -10%, var(--indigo-soft), transparent),
+      radial-gradient(ellipse 600px 500px at 100% 10%, var(--copper-soft), transparent);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;
+  }
+  @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(34px,4.6vw,54px); line-height:1.06; margin:18px 0 20px;}
+  .hero h1 em{font-style:normal; color:var(--copper);}
+  .hero p.lead{font-size:17px; color:var(--muted); line-height:1.6; max-width:520px; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:28px;}
+  .hero-trust{display:flex; gap:22px; flex-wrap:wrap; font-size:13px; color:var(--muted);}
+  .hero-trust span{display:flex; align-items:center; gap:7px;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--good);}
+
+  /* ---- Ticket signature element ---- */
+  .ticket-stage{position:relative; display:flex; justify-content:center; padding:20px; max-width:100%; overflow:visible;}
+  .ticket{
+    width:360px; max-width:82vw; background:var(--paper); color:#2b2620; border-radius:14px;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,.6), 0 0 0 1px #00000010;
+    transform:rotate(3deg);
+    font-family:'IBM Plex Mono',monospace;
+    position:relative; overflow:hidden;
+    animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{transform:rotate(3deg) translateY(0);} 50%{transform:rotate(3deg) translateY(-10px);} }
+  .ticket-top{padding:20px 22px 16px;}
+  .ticket-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;}
+  .ticket-brand{font-family:'Space Grotesk'; font-weight:700; font-size:13px; letter-spacing:.02em;}
+  .ticket-num{font-size:11px; color:#8a8168;}
+  .ticket h4{font-size:19px; font-weight:600; margin-bottom:4px;}
+  .ticket-sub{font-size:11px; color:#8a8168; margin-bottom:16px;}
+  .ticket-fields{display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; font-size:11px; margin-bottom:16px;}
+  .ticket-fields .f-label{color:#9a9178; display:block; margin-bottom:2px; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em;}
+  .ticket-fields .f-val{font-size:12px; font-weight:600;}
+  .ticket-stamp{
+    position:absolute; top:96px; right:24px;
+    border:2px solid var(--good); color:#1c8f66;
+    border-radius:8px; padding:4px 10px; font-size:11px; font-weight:600;
+    transform:rotate(-9deg); letter-spacing:.05em;
+  }
+  .ticket-tear{
+    display:flex; align-items:center; gap:6px; padding:0 6px;
+  }
+  .ticket-tear::before,.ticket-tear::after{content:''; flex:1; border-top:2px dashed #c9c2ac;}
+  .ticket-tear span{font-size:9px; color:#9a9178;}
+  .ticket-bottom{padding:16px 22px 22px; display:flex; justify-content:space-between; align-items:flex-end;}
+  .ticket-qr{width:52px; height:52px; border-radius:6px; background:
+      repeating-linear-gradient(90deg,#2b2620 0 4px, transparent 4px 8px),
+      repeating-linear-gradient(0deg,#2b2620 0 4px, transparent 4px 8px);
+      background-blend-mode:multiply; background-color:#fff; opacity:.85;}
+  .ticket-total{text-align:right;}
+  .ticket-total .f-label{color:#9a9178; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; display:block;}
+  .ticket-total .amount{font-size:20px; font-weight:600; color:#1c8f66;}
+  .float-chip{
+    position:absolute; z-index:3; background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:9px 13px; font-size:12px; display:flex; align-items:center; gap:8px; box-shadow:0 10px 30px -10px #000;
+  }
+  .chip-1{top:0%; left:-4%;}
+  .chip-2{bottom:2%; right:-6%;}
+  @media (max-width:1080px){ .chip-2{right:-2%;} }
+  @media (max-width:960px){ .float-chip{display:none;} .ticket{transform:rotate(1.5deg); width:320px; max-width:80vw;} }
+  @media (max-width:480px){ .ticket{transform:none; width:280px; max-width:78vw;} .ticket-stage{padding:12px;} }
+  @media (max-width:520px){
+    .price-amount{flex-direction:column; align-items:flex-start; gap:2px;}
+    .price-amount .num{font-size:40px;}
+    .price-card{padding:28px 24px;}
+  }
+
+  /* ---------- SECTION shared ---------- */
+  section{padding:96px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px); margin-top:14px; line-height:1.15;}
+  .section-head p{color:var(--muted); font-size:16px; margin-top:14px; line-height:1.6;}
+
+  /* ---------- PROBLEMS ---------- */
+  .problems{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  @media (max-width:820px){ .problem-grid{grid-template-columns:1fr;} }
+  .problem-card{background:var(--surface); padding:30px 28px;}
+  .problem-card .glyph{font-size:22px; margin-bottom:16px; display:block;}
+  .problem-card h3{font-size:16px; margin-bottom:8px; font-weight:600;}
+  .problem-card p{font-size:14px; color:var(--muted); line-height:1.6;}
+
+  /* ---------- FEATURES ---------- */
+  .feat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:920px){ .feat-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:620px){ .feat-grid{grid-template-columns:1fr;} }
+  .feat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:26px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .feat-card:hover{border-color:#3a4155; transform:translateY(-3px);}
+  .feat-icon{
+    width:38px; height:38px; border-radius:10px; margin-bottom:18px;
+    display:flex; align-items:center; justify-content:center; font-size:17px;
+    background:var(--indigo-soft); color:#a5a7fb;
+  }
+  .feat-card h3{font-size:15.5px; margin-bottom:8px; font-weight:600;}
+  .feat-card p{font-size:13.5px; color:var(--muted); line-height:1.6;}
+
+  /* ---------- VIDEO DEMO ---------- */
+  .video-section{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .video-frame{
+    position:relative; width:100%; max-width:920px; margin:0 auto; aspect-ratio:16/9;
+    border-radius:20px; overflow:hidden; border:1px solid var(--line);
+    background:linear-gradient(160deg, var(--surface-2), var(--ink));
+  }
+  .video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .video-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    text-align:center; padding:24px;
+  }
+  .video-play{
+    width:74px; height:74px; border-radius:50%; background:var(--copper); color:#1a1204;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    box-shadow:0 20px 50px -12px #E8A33D55;
+  }
+  .video-placeholder h4{font-size:16px; color:var(--text); font-weight:600;}
+  .video-placeholder p{font-size:13px; color:var(--muted); max-width:360px;}
+
+  /* ---------- FLOW (real sequence) ---------- */
+  .flow{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .flow-track{position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  @media (max-width:820px){ .flow-track{grid-template-columns:1fr; gap:28px;} }
+  .flow-track::before{
+    content:''; position:absolute; top:19px; left:6%; right:6%; height:1px; background:var(--line);
+  }
+  @media (max-width:820px){ .flow-track::before{display:none;} }
+  .flow-step{position:relative; padding-right:20px;}
+  .flow-num{
+    width:38px; height:38px; border-radius:50%; background:var(--ink); border:1px solid var(--copper);
+    color:var(--copper); font-family:'IBM Plex Mono'; font-size:13px; font-weight:600;
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px; position:relative; z-index:1;
+  }
+  .flow-step h3{font-size:15.5px; margin-bottom:8px;}
+  .flow-step p{font-size:13.5px; color:var(--muted); line-height:1.6;}
+
+  /* ---------- PRICING ---------- */
+  .price-wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:stretch;}
+  @media (max-width:860px){ .price-wrap{grid-template-columns:1fr;} }
+  .price-card{
+    background:linear-gradient(160deg, var(--surface-2), var(--surface));
+    border:1px solid var(--line); border-radius:20px; padding:40px;
+    position:relative; overflow:hidden;
+  }
+  .price-card::before{
+    content:''; position:absolute; top:-40%; right:-20%; width:320px; height:320px; border-radius:50%;
+    background:radial-gradient(circle, var(--indigo-soft), transparent 70%);
+  }
+  .price-amount{display:flex; align-items:baseline; gap:8px; margin:20px 0 6px; position:relative;}
+  .price-amount .num{font-family:'IBM Plex Mono'; font-size:52px; font-weight:600;}
+  .price-amount .per{color:var(--muted); font-size:15px;}
+  .price-note{color:var(--muted); font-size:13.5px; margin-bottom:28px;}
+  .price-list{list-style:none; display:flex; flex-direction:column; gap:13px; margin-bottom:30px;}
+  .price-list li{display:flex; gap:10px; font-size:14px; align-items:flex-start;}
+  .price-list li::before{content:'✓'; color:var(--good); font-weight:700; flex-shrink:0;}
+  .price-side{
+    border:1px solid var(--line); border-radius:20px; padding:32px; display:flex; flex-direction:column; justify-content:center; gap:18px;
+    background:var(--surface);
+  }
+  .price-side .row{display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .price-side .row:last-of-type{border-bottom:none; padding-bottom:0;}
+  .price-side .row .label{font-size:13.5px; color:var(--muted);}
+  .price-side .row .val{font-family:'IBM Plex Mono'; font-weight:600; font-size:15px; color:var(--copper);}
+
+  /* ---------- MERCADO PAGO BOX ---------- */
+  .mp-box{
+    margin-top:24px; display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;
+    background:linear-gradient(135deg, var(--surface-2), var(--surface));
+    border:1px solid var(--line); border-radius:20px; padding:40px;
+  }
+  @media (max-width:860px){ .mp-box{grid-template-columns:1fr; gap:26px;} }
+  .mp-info h3{font-size:21px; margin:12px 0 10px; line-height:1.25;}
+  .mp-info p{font-size:14px; color:var(--muted); line-height:1.6;}
+  .mp-form{display:flex; flex-direction:column; gap:12px;}
+  .mp-total{display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .mp-total span{font-size:13px; color:var(--muted);}
+  .mp-total strong{font-family:'IBM Plex Mono'; font-size:22px; color:var(--copper); font-weight:600;}
+  .mp-secure{font-size:11.5px; color:var(--muted); text-align:center;}
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:780px;}
+  .faq-item{border-bottom:1px solid var(--line); padding:22px 0;}
+  .faq-item summary{
+    cursor:pointer; font-size:15.5px; font-weight:600; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:'+'; font-family:'IBM Plex Mono'; color:var(--copper); font-size:20px; flex-shrink:0; transition:transform .2s ease;}
+  .faq-item[open] summary::after{transform:rotate(45deg);}
+  .faq-item p{color:var(--muted); font-size:14.5px; line-height:1.65; margin-top:12px; padding-right:30px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--surface); border-top:1px solid var(--line);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:860px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact h2{font-size:clamp(26px,3.4vw,36px); line-height:1.15; margin-bottom:16px;}
+  .contact p{color:var(--muted); font-size:15.5px; line-height:1.6; margin-bottom:26px;}
+  .whatsapp-card{
+    display:flex; align-items:center; gap:14px; background:var(--ink); border:1px solid var(--line);
+    border-radius:14px; padding:18px 20px; margin-bottom:14px;
+  }
+  .whatsapp-card .wa-ic{width:40px; height:40px; border-radius:10px; background:#25D36622; color:#25D366; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0;}
+  .whatsapp-card div p{margin:0; color:var(--text); font-weight:600; font-size:14.5px;}
+  .whatsapp-card div span{color:var(--muted); font-size:13px;}
+
+  .form-card{background:var(--ink); border:1px solid var(--line); border-radius:18px; padding:30px;}
+  .form-card h3{font-size:17px; margin-bottom:6px;}
+  .form-card > p{color:var(--muted); font-size:13.5px; margin-bottom:22px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:600;}
+  .field input, .field textarea{
+    width:100%; background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; color:var(--text); font-size:14px; font-family:'Inter'; resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{border-color:var(--copper); outline:none;}
+  .form-card .btn{width:100%; justify-content:center;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:40px 0; border-top:1px solid var(--line);}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--muted);}
+
+  /* ---------- FLOAT WA BUTTON ---------- */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; z-index:60;
+    width:56px; height:56px; border-radius:50%; background:#25D366; color:#08210f;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    box-shadow:0 10px 30px -6px #000a; transition:transform .15s ease;
+  }
+  .wa-float:hover{transform:scale(1.08);}
+
+  @media (prefers-reduced-motion: reduce){
+    .ticket{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="logo-mark"><img src="/icon-64.png" alt="MultiTech OS" /></span>MultiTech OS</div>
+    <div class="nav-links">
+      <a href="#recursos">Recursos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#preco">Preço</a>
+      <a href="#duvidas">Dúvidas</a>
+    </div>
+    <a class="btn btn-primary" href="#contato">Falar no WhatsApp</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Sistema pra assistência técnica</span>
+      <h1>Sua assistência sai <em>do caderno</em><br>e entra no controle.</h1>
+      <p class="lead">Recepção do aparelho, orçamento, aprovação do cliente, financeiro e etiqueta com QR — tudo numa tela só, do jeito que uma assistência técnica de verdade trabalha no dia a dia.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener">Testar 15 dias grátis</a>
+        <a class="btn btn-ghost btn-lg" href="#recursos">Ver o que o sistema faz</a>
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin:-14px 0 22px;">Você fala comigo direto no WhatsApp e eu já libero uma demonstração pro seu e-mail ou WhatsApp na mesma hora.</p>
+      <div class="hero-trust">
+        <span><span class="dot"></span>Dados isolados por empresa</span>
+        <span><span class="dot"></span>Funciona no celular</span>
+        <span><span class="dot"></span>Suporte direto com quem desenvolve</span>
+      </div>
+    </div>
+
+    <div class="ticket-stage">
+      <div class="float-chip chip-1">🔧 OS #482 aberta agora</div>
+      <div class="float-chip chip-2">✅ Orçamento aprovado</div>
+      <div class="ticket">
+        <div class="ticket-top">
+          <div class="ticket-row">
+            <span class="ticket-brand">ORDEM DE SERVIÇO</span>
+            <span class="ticket-num">Nº 0482</span>
+          </div>
+          <h4>iPhone 12 — Tela trincada</h4>
+          <span class="ticket-sub">Cliente: Marcos A. · Entrada 14/03</span>
+          <div class="ticket-fields">
+            <div><span class="f-label">Técnico</span><span class="f-val">Renata</span></div>
+            <div><span class="f-label">Prazo</span><span class="f-val">2 dias úteis</span></div>
+            <div><span class="f-label">Peça</span><span class="f-val">Tela OLED</span></div>
+            <div><span class="f-label">Garantia</span><span class="f-val">90 dias</span></div>
+          </div>
+        </div>
+        <div class="ticket-stamp">PRONTO ✓</div>
+        <div class="ticket-tear"><span>1ª via · cliente</span></div>
+        <div class="ticket-bottom">
+          <div class="ticket-qr" aria-hidden="true"></div>
+          <div class="ticket-total">
+            <span class="f-label">Total</span>
+            <span class="amount">R$ 380,00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problems">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">O que costuma travar uma assistência</span>
+      <h2>Sem sistema, o problema não é o conserto. É tudo em volta dele.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <span class="glyph">📋</span>
+        <h3>Aparelho sem rastro</h3>
+        <p>Cliente liga perguntando do celular e ninguém sabe em que pé está o conserto, nem quem pegou o aparelho.</p>
+      </div>
+      <div class="problem-card">
+        <span class="glyph">💬</span>
+        <h3>Orçamento indo e voltando no WhatsApp</h3>
+        <p>Aprovação de peça e mão de obra se perde em conversa solta, sem registro formal de quem autorizou o quê.</p>
+      </div>
+      <div class="problem-card">
+        <span class="glyph">📉</span>
+        <h3>Caixa sem separar peça de mão de obra</h3>
+        <p>No fim do mês, ninguém sabe ao certo quanto sobrou de lucro de verdade — só o total que entrou e saiu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">O que o sistema faz</span>
+      <h2>Cada tela pensada pro balcão de uma assistência, não pra um ERP genérico.</h2>
+      <p>Nada de módulo sobrando que você nunca vai usar. Só o que realmente acontece do check-in à entrega.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <h3>Recepção Express</h3>
+        <p>Cliente, aparelho, checklist físico item por item e senha de desbloqueio — tudo numa única tela, em menos de 1 minuto. Visão geral da OS sempre à mão, do check-in até a entrega, sem precisar caçar informação espalhada.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🏷️</div>
+        <h3>Etiqueta sob medida, sem desperdício</h3>
+        <p>Você escolhe o tamanho do modelo (ou cria o seu) — a etiqueta sai exatamente no formato da sua impressora térmica, sem sobrar papel em branco nem cortar informação. Escaneia o QR e abre a OS na hora.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🖊️</div>
+        <h3>Laudo Visual na tela</h3>
+        <p>Marca direto no desenho do aparelho onde tem risco, trinco ou avaria — visual, rápido, e vira prova registrada do estado em que o cliente entregou o aparelho.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔎</div>
+        <h3>Aparelho com memória</h3>
+        <p>O sistema reconhece o aparelho pelo número de série — mesmo que ele tenha trocado de dono. Se um cliente novo trouxer um celular que já passou pela sua loja antes, você já vê o histórico completo na hora.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <h3>Portal do Cliente</h3>
+        <p>Cliente acompanha o status do reparo pelo próprio link, aprova orçamento e conversa pelo chat — sem baixar nenhum aplicativo.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💰</div>
+        <h3>PDV integrado</h3>
+        <p>Recebe o pagamento da OS e ainda vende um acessório junto, tudo no mesmo fechamento de caixa.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <h3>Financeiro & Caixa</h3>
+        <p>Separa peça de mão de obra automaticamente, calcula comissão do técnico e mostra o lucro real do mês, não só o total.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🛡️</div>
+        <h3>Termo de Garantia</h3>
+        <p>Sai impresso junto na entrega, com o prazo já calculado — sem depender de ninguém lembrar de preencher na mão.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔐</div>
+        <h3>Cada loja no seu canto</h3>
+        <p>Se você tem mais de uma unidade, cada uma vê só os próprios dados — com um painel consolidado pra você acompanhar todas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center; margin-left:auto; margin-right:auto;">
+      <span class="eyebrow">Veja funcionando</span>
+      <h2>2 minutos valem mais que qualquer print de tela.</h2>
+    </div>
+
+    <!--
+      QUANDO O VÍDEO ESTIVER PRONTO: suba no YouTube (pode ser "não listado",
+      não precisa ser público) e troque o bloco ".video-placeholder" abaixo
+      por este iframe, colocando o ID do seu vídeo no lugar de SEU_VIDEO_ID:
+
+      <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID" title="MultiTech OS — Demonstração" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    -->
+    <div class="video-frame">
+      <div class="video-placeholder">
+        <div class="video-play">▶</div>
+        <h4>Vídeo de demonstração — em breve</h4>
+        <p>Assim que o vídeo estiver pronto, ele aparece bem aqui, mostrando o sistema rodando de verdade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Do balcão até a entrega</span>
+      <h2>O fluxo que o sistema segue é o mesmo que sua equipe já faz — só que sem se perder.</h2>
+    </div>
+    <div class="flow-track">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <h3>Recepção</h3>
+        <p>Cliente chega, aparelho é cadastrado com checklist visual e senha de desbloqueio registrada com segurança.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <h3>Diagnóstico</h3>
+        <p>Técnico lança o laudo e monta o orçamento direto na OS, separando peça e mão de obra.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <h3>Aprovação</h3>
+        <p>Cliente aprova pelo Portal, sem ligação nem ida até a loja — fica tudo registrado, com data e hora.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <h3>Entrega</h3>
+        <p>Pagamento é recebido pelo PDV, termo de saída é impresso, e a comissão do técnico já sai calculada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="preco">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Investimento</span>
+      <h2>Um preço só, sem letra miúda.</h2>
+    </div>
+    <div class="price-wrap">
+      <div class="price-card">
+        <span class="eyebrow" style="color:#a5a7fb">Plano Essencial</span>
+        <div class="price-amount">
+          <span class="num">R$ 100</span>
+          <span class="per">/ mês, até 2 telas conectadas</span>
+        </div>
+        <p class="price-note">+ R$ 30/mês por tela adicional, se sua equipe precisar de mais acessos simultâneos.</p>
+        <ul class="price-list">
+          <li>Ordens de serviço, clientes e estoque sem limite</li>
+          <li>Portal do cliente e etiquetas com QR Code inclusos</li>
+          <li>PDV e Financeiro & Caixa completos</li>
+          <li>Suporte direto pelo WhatsApp</li>
+          <li>Sem contrato de fidelidade</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="#contato">Começar agora</a>
+        <a href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener" style="display:block; text-align:center; font-size:13px; color:var(--muted); margin-top:14px;">ou <span style="color:var(--copper); font-weight:600;">teste 15 dias grátis</span> antes de decidir</a>
+      </div>
+      <div class="price-side">
+        <div class="row"><span class="label">Aparelhos cadastrados</span><span class="val">Ilimitado</span></div>
+        <div class="row"><span class="label">Ordens de serviço</span><span class="val">Ilimitado</span></div>
+        <div class="row"><span class="label">Clientes</span><span class="val">Ilimitado</span></div>
+        <div class="row"><span class="label">Implantação</span><span class="val">Sem custo</span></div>
+      </div>
+    </div>
+
+    <div class="mp-box">
+      <div class="mp-info">
+        <span class="eyebrow">Pagamento direto pela página</span>
+        <h3>Já decidiu? Paga sua primeira mensalidade agora mesmo.</h3>
+        <p>Esse valor já cobre o plano padrão, com 2 telas simultâneas — o suficiente pra maioria das lojas. Depois de pagar, eu ativo seu acesso e entro em contato pelo WhatsApp com seu login.</p>
+        <p style="margin-top:10px;">Precisa de mais telas? Sem problema — paga esse mesmo valor agora e me chama no WhatsApp depois; a gente ajusta as telas extras direto por lá.</p>
+      </div>
+      <div class="mp-form">
+        <div class="mp-total">
+          <span>Total do 1º mês · 2 telas</span>
+          <strong>R$ 100,00</strong>
+        </div>
+        <a class="btn btn-primary btn-lg" href="https://mpago.la/2Qrd6ei" target="_blank" rel="noopener">Pagar com Mercado Pago</a>
+        <span class="mp-secure">🔒 Pagamento processado pelo próprio Mercado Pago — Pix, cartão ou boleto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Perguntas frequentes</span>
+      <h2>Antes de decidir</h2>
+    </div>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Preciso instalar alguma coisa no computador?</summary>
+        <p>Não. O MultiTech OS roda no navegador, direto — funciona em computador, tablet ou celular, sem instalação nenhuma.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Meus dados ficam misturados com os de outras assistências?</summary>
+        <p>Não. Cada empresa tem os próprios dados isolados no banco — nenhuma outra assistência que usa o sistema consegue ver informação sua, nem você a delas.</p>
+      </details>
+      <details class="faq-item">
+        <summary>E se eu tiver mais de uma loja?</summary>
+        <p>Dá pra cadastrar cada unidade separadamente e acompanhar todas juntas num painel consolidado, sem misturar o financeiro de uma com o da outra.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Existe fidelidade ou multa de cancelamento?</summary>
+        <p>Não. É mensalidade simples — se decidir parar de usar, é só avisar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como funciona o suporte se eu tiver dúvida?</summary>
+        <p>Direto pelo WhatsApp, com quem realmente desenvolve e mantém o sistema — sem central de atendimento genérica.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="eyebrow">Vamos conversar</span>
+      <h2>Me conta como sua assistência funciona hoje, e eu te mostro o sistema rodando.</h2>
+      <p>Sem formulário automático de robô, sem fila de atendimento. Você fala direto comigo, e a gente vê junto se faz sentido pro seu dia a dia.</p>
+      <a class="whatsapp-card" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener">
+        <span class="wa-ic">✆</span>
+        <div><p>Chamar no WhatsApp</p><span>Resposta rápida, direto com quem atende</span></div>
+      </a>
+    </div>
+
+    <form class="form-card" id="leadForm">
+      <h3>Prefere deixar seus dados?</h3>
+      <p>Ao enviar, abrimos o WhatsApp já com sua mensagem pronta — só confirmar o envio.</p>
+      <div class="field">
+        <label for="intencao">O que você procura?</label>
+        <select id="intencao" required style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--text); font-size:14px; font-family:'Inter';">
+          <option value="teste">Quero testar 15 dias grátis</option>
+          <option value="contratar">Já quero contratar</option>
+          <option value="duvida">Só tenho uma dúvida antes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="nome">Seu nome</label>
+        <input id="nome" type="text" required placeholder="Como podemos te chamar">
+      </div>
+      <div class="field">
+        <label for="loja">Nome da assistência</label>
+        <input id="loja" type="text" required placeholder="Nome da sua loja">
+      </div>
+      <div class="field">
+        <label for="whatsapp">Seu WhatsApp</label>
+        <input id="whatsapp" type="tel" required placeholder="(81) 9....-....">
+      </div>
+      <div class="field">
+        <label for="msg">Alguma dúvida específica? (opcional)</label>
+        <textarea id="msg" rows="3" placeholder="Ex: quantas telas eu preciso, como funciona a migração..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar e abrir WhatsApp</button>
+      <p style="font-size:11px; color:var(--muted); text-align:center; margin-top:14px; line-height:1.5;">Seus dados são usados só pra te retornar por WhatsApp, e não ficam armazenados nesta página.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 MultiTech OS — Nordestech Tecnologia</span>
+    <span>Feito pra quem conserta, não pra quem só vende sistema.</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">✆</a>
+
+<script>
+  document.getElementById('leadForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const intencao = document.getElementById('intencao').value;
+    const nome = document.getElementById('nome').value.trim();
+    const loja = document.getElementById('loja').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const msg = document.getElementById('msg').value.trim();
+
+    let texto = `Olá! Meu nome é ${nome}, da assistência ${loja}. Meu WhatsApp: ${whatsapp}.`;
+    if (intencao === 'teste') {
+      texto += ` Quero solicitar os 15 dias de teste grátis do MultiTech OS.`;
+    } else if (intencao === 'contratar') {
+      texto += ` Já quero contratar o MultiTech OS.`;
+    } else {
+      texto += ` Tenho uma dúvida sobre o MultiTech OS antes de decidir.`;
+    }
+    if(msg){ texto += ` Detalhe: ${msg}`; }
+
+    const url = `https://wa.me/5581988630573?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
