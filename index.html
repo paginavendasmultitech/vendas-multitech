@@ -175,9 +175,10 @@
   .feat-card:hover{border-color:#3a4155; transform:translateY(-3px);}
   .feat-icon{
     width:38px; height:38px; border-radius:10px; margin-bottom:18px;
-    display:flex; align-items:center; justify-content:center; font-size:17px;
+    display:flex; align-items:center; justify-content:center;
     background:var(--indigo-soft); color:#a5a7fb;
   }
+  .feat-icon svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
   .feat-card h3{font-size:15.5px; margin-bottom:8px; font-weight:600;}
   .feat-card p{font-size:13.5px; color:var(--muted); line-height:1.6;}
 
@@ -353,6 +354,8 @@
   /* ---------- FOOTER ---------- */
   footer{padding:40px 0; border-top:1px solid var(--line);}
   .foot-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--muted);}
+  .foot-brand{display:flex; align-items:center; gap:10px;}
+  .foot-logo{width:26px; height:26px; border-radius:50%; flex-shrink:0;}
 
   /* ---------- FLOAT WA BUTTON ---------- */
   .wa-float{
@@ -368,6 +371,23 @@
     *{transition:none !important;}
   }
 </style>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32M78F2SXZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-32M78F2SXZ');
+</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y9g9smd9mr");
+</script>
 </head>
 <body>
 
@@ -391,7 +411,7 @@
       <h1>Sua assistência sai <em>do caderno</em><br>e entra no controle.</h1>
       <p class="lead">Recepção do aparelho, orçamento, aprovação do cliente, financeiro e etiqueta com QR — tudo numa tela só, do jeito que uma assistência técnica de verdade trabalha no dia a dia.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener">Testar 15 dias grátis</a>
+        <a class="btn btn-primary btn-lg" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener" onclick="gtag('event', 'clique_teste_gratis', {'local': 'heroi'});">Testar 15 dias grátis</a>
         <a class="btn btn-ghost btn-lg" href="#recursos">Ver o que o sistema faz</a>
       </div>
       <p style="font-size:12.5px; color:var(--muted); margin:-14px 0 22px;">Você fala comigo direto no WhatsApp e eu já libero uma demonstração pro seu e-mail ou WhatsApp na mesma hora.</p>
@@ -445,47 +465,47 @@
     </div>
     <div class="feat-grid">
       <div class="feat-card">
-        <div class="feat-icon">⚡</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <h3>Recepção Express</h3>
         <p>Cliente, aparelho, checklist físico item por item e senha de desbloqueio — tudo numa única tela, em menos de 1 minuto. Visão geral da OS sempre à mão, do check-in até a entrega, sem precisar caçar informação espalhada.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">🏷️</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24H4a1 1 0 0 0-1 1v5.59a2 2 0 0 0 .59 1.41l9.58 9.58a2 2 0 0 0 2.82 0l4.6-4.6a2 2 0 0 0 0-2.82Z"/><circle cx="7.5" cy="7.5" r="1"/></svg></div>
         <h3>Etiqueta sob medida, sem desperdício</h3>
         <p>Você escolhe o tamanho do modelo (ou cria o seu) — a etiqueta sai exatamente no formato da sua impressora térmica, sem sobrar papel em branco nem cortar informação. Escaneia o QR e abre a OS na hora.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">🖊️</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></div>
         <h3>Laudo Visual na tela</h3>
         <p>Marca direto no desenho do aparelho onde tem risco, trinco ou avaria — visual, rápido, e vira prova registrada do estado em que o cliente entregou o aparelho.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">🔎</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
         <h3>Aparelho com memória</h3>
         <p>O sistema reconhece o aparelho pelo número de série — mesmo que ele tenha trocado de dono. Se um cliente novo trouxer um celular que já passou pela sua loja antes, você já vê o histórico completo na hora.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">📱</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
         <h3>Portal do Cliente</h3>
         <p>Cliente acompanha o status do reparo pelo próprio link, aprova orçamento e conversa pelo chat — sem baixar nenhum aplicativo.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">💰</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div>
         <h3>PDV integrado</h3>
         <p>Recebe o pagamento da OS e ainda vende um acessório junto, tudo no mesmo fechamento de caixa.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">📊</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></div>
         <h3>Financeiro & Caixa</h3>
         <p>Separa peça de mão de obra automaticamente, calcula comissão do técnico e mostra o lucro real do mês, não só o total.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">🛡️</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
         <h3>Termo de Garantia</h3>
         <p>Sai impresso junto na entrega, com o prazo já calculado — sem depender de ninguém lembrar de preencher na mão.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon">🔐</div>
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>Cada loja no seu canto</h3>
         <p>Se você tem mais de uma unidade, cada uma vê só os próprios dados — com um painel consolidado pra você acompanhar todas.</p>
       </div>
@@ -628,7 +648,7 @@
           <li>Sem contrato de fidelidade</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="#contato">Começar agora</a>
-        <a href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener" style="display:block; text-align:center; font-size:13px; color:var(--muted); margin-top:14px;">ou <span style="color:var(--copper); font-weight:600;">teste 15 dias grátis</span> antes de decidir</a>
+        <a href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Quero%20solicitar%20os%2015%20dias%20de%20teste%20gr%C3%A1tis%20do%20MultiTech%20OS." target="_blank" rel="noopener" onclick="gtag('event', 'clique_teste_gratis', {'local': 'secao_preco'});" style="display:block; text-align:center; font-size:13px; color:var(--muted); margin-top:14px;">ou <span style="color:var(--copper); font-weight:600;">teste 15 dias grátis</span> antes de decidir</a>
       </div>
       <div class="price-side">
         <div class="row"><span class="label">Aparelhos cadastrados</span><span class="val">Ilimitado</span></div>
@@ -650,11 +670,11 @@
           <span>Total do 1º mês · 2 telas</span>
           <strong>R$ 100,00</strong>
         </div>
-        <a class="btn btn-lg btn-mercadopago" href="https://mpago.la/2Qrd6ei" target="_blank" rel="noopener">
+        <a class="btn btn-lg btn-mercadopago" href="https://mpago.la/2Qrd6ei" target="_blank" rel="noopener" onclick="gtag('event', 'clique_pagar_mercadopago');">
           Pagar com <img src="logo-mercadopago.svg" alt="Mercado Pago">
         </a>
         <span class="mp-or">ou</span>
-        <a class="btn btn-lg btn-ton" href="https://payment-link-v3.ton.com.br/pl_qdBr8KWwXGM7GBvi1S6KOalYvAQ1mkgD" target="_blank" rel="noopener">
+        <a class="btn btn-lg btn-ton" href="https://payment-link-v3.ton.com.br/pl_qdBr8KWwXGM7GBvi1S6KOalYvAQ1mkgD" target="_blank" rel="noopener" onclick="gtag('event', 'clique_pagar_ton');">
           Pagar com <img src="logo-ton.png" alt="Ton">
         </a>
         <span class="mp-secure">🔒 Pagamento processado direto pelo Mercado Pago ou Ton — Pix, cartão ou boleto</span>
@@ -704,8 +724,8 @@
       <span class="eyebrow">Vamos conversar</span>
       <h2>Me conta como sua assistência funciona hoje, e eu te mostro o sistema rodando.</h2>
       <p>Sem formulário automático de robô, sem fila de atendimento. Você fala direto comigo, e a gente vê junto se faz sentido pro seu dia a dia.</p>
-      <a class="whatsapp-card" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener">
-        <span class="wa-ic">✆</span>
+      <a class="whatsapp-card" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener" onclick="gtag('event', 'clique_whatsapp', {'local': 'secao_contato'});">
+        <span class="wa-ic"><img src="whatsapp-verde.svg" alt="WhatsApp" style="width:20px; height:20px;"></span>
         <div><p>Chamar no WhatsApp</p><span>Resposta rápida, direto com quem atende</span></div>
       </a>
     </div>
@@ -745,12 +765,15 @@
 
 <footer>
   <div class="wrap foot-row">
-    <span>© 2026 MultiTech OS — Nordestech Tecnologia</span>
+    <span class="foot-brand">
+      <img src="logo-nordestech.png" alt="NordesTech Tecnologia" class="foot-logo">
+      © 2026 MultiTech OS — Nordestech Tecnologia
+    </span>
     <span>Feito pra quem conserta, não pra quem só vende sistema.</span>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">✆</a>
+<a class="wa-float" href="https://wa.me/5581988630573?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20MultiTech%20OS%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" onclick="gtag('event', 'clique_whatsapp', {'local': 'botao_flutuante'});"><img src="whatsapp-branco.svg" alt="WhatsApp" style="width:28px; height:28px;"></a>
 
 <script>
   document.getElementById('leadForm').addEventListener('submit', function(e){
@@ -772,6 +795,7 @@
     if(msg){ texto += ` Detalhe: ${msg}`; }
 
     const url = `https://wa.me/5581988630573?text=${encodeURIComponent(texto)}`;
+    gtag('event', 'envio_formulario_contato', {'intencao': intencao});
     window.open(url, '_blank');
   });
 
@@ -784,6 +808,7 @@
     frame.onclick = null;
     frame.style.cursor = 'default';
     frame.classList.add('video-playing'); // tira o filtro escuro por cima do vídeo
+    gtag('event', 'assistiu_video', {'video': src});
 
     const video = document.createElement('video');
     video.src = src;
